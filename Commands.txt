@@ -1,0 +1,68 @@
+----------------------LAMBDA--------------------------------------
+CloudwatchFullAccess
+s3fullaccess
+AWSLambdaBasicExecutionRole
+
+
+_Code_
+
+
+import json
+
+import boto3
+
+
+s3=boto3.client('s3')
+
+
+def lambda_handler(event,context):
+
+    bucket='grinalisbucket'
+
+    dataToUpload = {}
+
+    dataToUpload['PID'] = '277'
+
+    dataToUpload['DEPT'] = 'INFT'
+
+    dataToUpload['NAME'] = 'GRINAL'
+
+    dataToUpload['FILE'] = 'ABC_111'
+
+    fileName = 'ABC_111' + '.json'
+
+    uploadByteStream= bytes(json.dumps(dataToUpload).encode('UTF-8'))
+
+    s3.put_object(Bucket=bucket,Key=fileName,Body=uploadByteStream)
+
+    print('object has been uploaded')
+
+======================SonarQube================================================
+sonar.projectKey=python
+sonar.projectName=python
+sonar.projectVersion=1.0
+sonar.sources=C:\sonar-scanner-5.0.1.3006-windows\conf
+
+++++++++++++++++++++++Creation of user with super priveldges++++++++++++++++++++++
+sudo adduser <new-username>
+sudo usermod -aG sudo <new-username>
+sudo su - <new-username>
+
+
+https://docs.google.com/document/d/1-78N3n2wqjQt2LBfbV42Qz3syA3szP9ZaTGFj98sYSM/edit?usp=sharing
+
+________________________Terraform_________________________________________________________
+
+provider "aws" {
+  access_key = "AKIAZU6U47FHXASKQZIJ"
+  secret_key = "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"
+  region     = "us-east-1"
+}
+
+resource "aws_instance" "terraform_sfit" {
+  ami           = "ami-01bc990364452ab3e"
+  instance_type = "t2.micro"
+}
+
+
+
